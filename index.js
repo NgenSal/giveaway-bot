@@ -1,12 +1,14 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 let fs = require('fs');
-const { prefix, token } = require('./config.json');
+const { TOKEN, PREFIX } = require("./util/ngenskuy.js");
+
+client.prefix = PREFIX;
 
 client.on('ready', () => {
   console.log(`Bot tag: ${client.user.tag}`);
   console.log(`Guilds: ${client.guilds.cache.size}`);
-  client.user.setActivity(`with ${prefix}giveaway & ${prefix}help`, { type: 'PLAYING' });
+  client.user.setActivity(`with ${PREFIX}giveaway & ${PREFIX}help`, { type: 'PLAYING' });
 });
 
 client.commands = new Discord.Collection();
@@ -19,8 +21,8 @@ for(const file of commandFiles) {
 }
 
 client.on('message', async message => {
-  if (message.content.startsWith(`${prefix}`)) {
-    let file_name = `${message.content.split(' ')[0].replace(prefix, '')}.js`;
+  if (message.content.startsWith(`${PREFIX}`)) {
+    let file_name = `${message.content.split(' ')[0].replace(PREFIX, '')}.js`;
     if(!fs.existsSync('./commands/' + file_name)) return undefined;
     if(fs.existsSync('./commands/' + file_name)) {
       client.commands.get(file_name.replace('.js', '')).execute(client, message);
@@ -28,4 +30,4 @@ client.on('message', async message => {
   }
 });
 
-client.login(token);
+client.login(TOKEN);
