@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 let fs = require('fs');
-const { TOKEN, PREFIX } = require("./util/ngenskuy.js");
+const { TOKEN, PREFIX } = require("./util/ngenskuy");
 
 client.prefix = PREFIX;
 
